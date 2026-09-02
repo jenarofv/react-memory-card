@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 const apiUrl = "https://dog.ceo/api/breed/pug/images";
+import { getRandomIntegers } from "./functions.js";
 
 function App() {
   const [currScore, setCurrScore] = useState(0);
@@ -13,7 +14,8 @@ function App() {
       .then((result) => result.json())
       .then((json) => {
         const imagesAux = [];
-        for (let i = 0; i < 16; i++) {
+        const randomNumbers = getRandomIntegers(16, 100);
+        for (const i of randomNumbers) {
           imagesAux.push({ key: i, src: json.message[i], clicked: false });
         }
         console.log(imagesAux);
