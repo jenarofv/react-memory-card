@@ -23,9 +23,15 @@ function App() {
     console.log(image);
     if (image.clicked) {
       window.alert("sorry, this image was already clicked");
+      setCurrScore(0);
+      images.forEach((img) => (img.clicked = false));
       return;
     }
     image.clicked = true;
+    setCurrScore(currScore + 1);
+    if (currScore + 1 > maxScore) {
+      setMaxScore(maxScore + 1);
+    }
   }
 
   useEffect(() => {
@@ -53,6 +59,16 @@ function App() {
       <div className="instructions">
         <h2> Instructions </h2>
         <p> Click all the pictures, without clicking any twice.</p>
+      </div>
+      <div>
+        <p>
+          current Score: {currScore}
+          <br />
+        </p>
+        <p>
+          {" "}
+          Max Score: {maxScore} <br />
+        </p>
       </div>
       <div className="images">
         {images.map((image) => (
