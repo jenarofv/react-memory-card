@@ -18,7 +18,6 @@ function App() {
         for (const i of randomNumbers) {
           imagesAux.push({ key: i, src: json.message[i], clicked: false });
         }
-        console.log(imagesAux);
         setImages(imagesAux);
       })
       .catch((err) => console.log(err));

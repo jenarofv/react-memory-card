@@ -8,5 +8,5 @@ export function getRandomIntegers(amount, limit) {
   while (randomNumbers.size < amount) {
     randomNumbers.add(Math.floor(Math.random() * limit + 1));
   }
-  return randomNumbers;
+  return Array.from(randomNumbers);
 }
