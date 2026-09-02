@@ -8,6 +8,26 @@ function App() {
   const [maxScore, setMaxScore] = useState(0);
   const [images, setImages] = useState([]);
 
+  function resetImageOrder() {
+    const numOfImages = images.length;
+    const randomIndices = getRandomIntegers(numOfImages, numOfImages);
+    const newImageArray = [];
+    for (const i of randomIndices) {
+      newImageArray.push(images[i]);
+    }
+    setImages(newImageArray);
+  }
+
+  function markAsClicked(key) {
+    const image = images.filter((img) => img.key === key).pop();
+    console.log(image);
+    if (image.clicked) {
+      window.alert("sorry, this image was already clicked");
+      return;
+    }
+    image.clicked = true;
+  }
+
   useEffect(() => {
     const request = new Request(apiUrl);
     fetch(apiUrl, { mode: "cors" })
@@ -15,8 +35,9 @@ function App() {
       .then((json) => {
         const imagesAux = [];
         const randomNumbers = getRandomIntegers(16, 100);
+        let key = 0;
         for (const i of randomNumbers) {
-          imagesAux.push({ key: i, src: json.message[i], clicked: false });
+          imagesAux.push({ key: key++, src: json.message[i], clicked: false });
         }
         setImages(imagesAux);
       })
@@ -35,7 +56,15 @@ function App() {
       </div>
       <div className="images">
         {images.map((image) => (
-          <img key={image.key} className="card" src={image.src} />
+          <img
+            key={image.key}
+            className="card"
+            src={image.src}
+            onClick={(e) => {
+              resetImageOrder();
+              markAsClicked(image.key);
+            }}
+          />
         ))}
       </div>
     </>
