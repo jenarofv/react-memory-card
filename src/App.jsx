@@ -20,7 +20,6 @@ function App() {
 
   function markAsClicked(key) {
     const image = images.filter((img) => img.key === key).pop();
-    console.log(image);
     if (image.clicked) {
       window.alert("sorry, this image was already clicked");
       setCurrScore(0);
