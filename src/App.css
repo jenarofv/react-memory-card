@@ -10,6 +10,30 @@
   }
 }
 
+@media only screen and (prefers-color-scheme: dark) {
+  :root {
+    /* based on Autumn in Japan: https://www.colourlovers.com/palette/3045839 */
+    --bg-color-1: #27354e;
+    --bg-color-2: #010103;
+    --img-border: #f9c0b9;
+    --selected-border: #a6bfb9;
+  }
+}
+
+@media only screen and (prefers-color-scheme: light) {
+  :root {
+    /* based on Fragile Heart: https://www.colourlovers.com/palette/2474908 */
+    --bg-color-1: #f6f4e7;
+    --bg-color-2: #bec3bf;
+    --img-border: #6e8187;
+    --selected-border: #ffd6c6;
+  }
+}
+
+body {
+  background: linear-gradient(var(--bg-color-1), var(--bg-color-2));
+}
+
 hr {
   width: 90%;
   border-color: lightgray;
@@ -32,7 +56,23 @@ hr {
 }
 
 .images .card {
-  width: 100%;
-  aspect-ratio: 1;
+  border-color: var(--img-border);
+  border-width: 10px;
+  border-style: solid;
   border-radius: 50px;
+  width: 90%;
+  aspect-ratio: 1;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+  transition-property: rotate, border-color;
+}
+
+/* media query to work only on screens that are not touchsreens. On a
+ * touchscreen, the :hover pseudoclass remains after re-rendering, which means
+ * the user see which is the last image they tapped */
+@media (hover: hover) and (pointer: fine) {
+  .images .card:hover {
+    rotate: -10deg;
+    border-color: var(--selected-border);
+  }
 }
