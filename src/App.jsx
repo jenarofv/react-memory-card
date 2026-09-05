@@ -34,7 +34,6 @@ function App() {
   }
 
   useEffect(() => {
-    const request = new Request(apiUrl);
     fetch(apiUrl, { mode: "cors" })
       .then((result) => result.json())
       .then((json) => {
@@ -75,7 +74,7 @@ function App() {
             key={image.key}
             className="card"
             src={image.src}
-            onClick={(e) => {
+            onClick={() => {
               resetImageOrder();
               markAsClicked(image.key);
             }}
